@@ -1,11 +1,6 @@
 from django.contrib import admin
 from .models import Category, Product
 
-
-admin.site.site_header = "Custom Admin Panel"
-admin.site.site_title = "Custom Admin"
-admin.site.index_title = "Welcome to the Dashboard"
-
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
@@ -19,6 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ('created_at',)
     readonly_fields = ('created_at',)
     list_editable = ('price', 'stock')
+
     fieldsets = (
         ('Basic Info', {'fields': ('name', 'category')}),
         ('Pricing & Stock', {'fields': ('price', 'stock')}),
@@ -26,5 +22,4 @@ class ProductAdmin(admin.ModelAdmin):
 
     def category_name(self, obj):
         return obj.category.name
-
     category_name.short_description = "Category"
