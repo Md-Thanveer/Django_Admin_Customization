@@ -17,3 +17,14 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     search_fields = ('name', 'category__name')
     ordering = ('created_at',)
+    readonly_fields = ('created_at',)
+    list_editable = ('price', 'stock')
+    fieldsets = (
+        ('Basic Info', {'fields': ('name', 'category')}),
+        ('Pricing & Stock', {'fields': ('price', 'stock')}),
+    )
+
+    def category_name(self, obj):
+        return obj.category.name
+
+    category_name.short_description = "Category"
